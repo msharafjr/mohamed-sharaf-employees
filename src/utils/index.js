@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /**
  * Group records by project id
  *
@@ -50,16 +52,16 @@ export function getLongestPeriodInCommon( records ) {
   for ( let i = 0; i < records.length; i++ ) {
     for ( let j = i + 1; j < records.length; j++ ) {
       // Get start and end dates of the first record
-      const startDateA = new Date( records[ i ][ 2 ] );
+      const startDateA = new Date( moment( records[ i ][ 2 ] ).format() );
       const endDateA = records[ i ][ 3 ].trim().toUpperCase() === 'NULL'
         ? new Date() /* Set to today */
-        : new Date( records[ i ][ 3 ]);
+        : new Date( moment( records[ i ][ 3 ] ).format() );
 
       // Get start and end dates of the second record
-      const startDateB = new Date( records[ j ][ 2 ]);
+      const startDateB = new Date( moment( records[ j ][ 2 ] ).format() );
       const endDateB = records[ j ][ 3 ].trim().toUpperCase() === 'NULL'
         ? new Date() /* Set to today */
-        : new Date( records[ j ][ 3 ] );
+        : new Date( moment( records[ j ][ 3 ] ).format() );
 
       const startDate = startDateA < startDateB ? startDateB : startDateA; /* Pick the "oldest" start date */
       const endDate = endDateA < endDateB ? endDateA : endDateB; /* Pick the "newest" end date */
