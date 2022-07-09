@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
@@ -11,10 +12,17 @@ const columnDefs = [
 ];
 
 function Table({ rowData }) {
+  const onGridReady = useCallback(( param ) => {
+    param.api.sizeColumnsToFit();
+  }, []);
 
   return (
     <div className='ag-theme-alpine' style={{ height: 400 }}>
-      <AgGridReact rowData={rowData} columnDefs={columnDefs} />
+      <AgGridReact
+        rowData={rowData}
+        columnDefs={columnDefs}
+        onGridReady={onGridReady}
+      />
     </div>
   );
 };
